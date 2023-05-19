@@ -1,0 +1,228 @@
+<div class="container mt-2" style="margin-top: 80px !important;">
+    <div style="display: flex; justify-content: space-between; ">
+        <input [(ngModel)]="value" (input)="searchCustomer(value)" class="form-control me-2" type="search"
+            placeholder="Search" aria-label="Search" style="width: 20%;margin-bottom: 10px;">
+
+
+            <button type="button" style="margin-bottom:6px ;" class="btn btn-primary"
+             data-bs-toggle="modal"
+            data-bs-target="#CreateCustomerModal" (click)=" resetForm()">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
+                <path
+                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                <path
+                    d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+            </svg> </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="CreateCustomerModal" tabindex="-1"
+            aria-labelledby="CreateCustomerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Customer
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="customerForm">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1"
+                                    class="form-label"> First Name</label>
+                                <input type="text" class="form-control"
+                                    id="exampleFormControlInput1"
+                                    placeholder="Customer First Name"
+                                    formControlName="firstName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1"
+                                    class="form-label"> Last Name</label>
+                                <input type="text" class="form-control"
+                                    id="exampleFormControlInput1"
+                                    placeholder="Customer Last Name"
+                                    formControlName="lastName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1"
+                                    class="form-label"> Job</label>
+                                <input type="text" class="form-control"
+                                    id="exampleFormControlInput1"
+                                    placeholder="Customer Job" formControlName="job">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1"
+                                    class="form-label">Email address</label>
+                                <input type="email" class="form-control"
+                                    id="exampleFormControlInput1"
+                                    placeholder="name@example.com"
+                                    formControlName="email">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button (click)="createCustomer()" type="button" class="btn btn-primary"
+                             data-bs-dismiss="modal"
+                            >Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <ng-container >
+        <div class="card">
+            <div class="card-header">Customers</div>
+            <div class="card-body" >
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>*</th>
+                                <th>Name</th>
+                                <th>Last Name</th>
+                                <th>Job</th>
+                                <th>Email</th>
+                                <th>Creation Date</th>
+                                <th style="text-align: center;">Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let c of customers?.content; let indice = index ">
+                                <td>{{ indice }}</td>
+                                <td>{{ c.firstName }}</td>
+                                <td>{{ c.lastName }}</td>
+                                <td>{{ c.job }}</td>
+                                <td>{{ c.email }}</td>
+                                <td>{{ c.creationDate | date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    <div style="display: flex; justify-content: space-around;">
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" style="margin-right:6px ;" class="btn btn-primary"
+                                            (click)="openUpdateModal(c.id)" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
+                                            </svg> </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Customer
+                                                            Details
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form [formGroup]="customerForm">
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1"
+                                                                    class="form-label"> First Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="exampleFormControlInput1"
+                                                                    placeholder="Customer First Name"
+                                                                    formControlName="firstName">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1"
+                                                                    class="form-label"> Last Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="exampleFormControlInput1"
+                                                                    placeholder="Customer Last Name"
+                                                                    formControlName="lastName">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1"
+                                                                    class="form-label"> Job</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="exampleFormControlInput1"
+                                                                    placeholder="Customer Job" formControlName="job">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1"
+                                                                    class="form-label">Email address</label>
+                                                                <input type="email" class="form-control"
+                                                                    id="exampleFormControlInput1"
+                                                                    placeholder="name@example.com"
+                                                                    formControlName="email">
+                                                            </div>
+                                                            <p>{{updateMessage}}</p>
+
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                            (click)="updateCustomer(c.id)" data-bs-dismiss="modal"
+                                                            [disabled]="customerForm.invalid">Save
+                                                            changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-danger" (click)="deleteUser(c.id)"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+                                                <path
+                                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708Z" />
+                                            </svg></button>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="display: flex; justify-content: center;"  >
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item"
+                                [ngClass]="{'disabled': !(customers?.totalPages > 2 && customers.pageable.pageNumber !=0)}" >
+                                    <a class="page-link"
+                                        (click)="onPageChange(customers.pageable.pageNumber-1, pageSize)">Previous</a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of numbers; let indice=index">
+                                    <a class="page-link" *ngIf="customers.totalPages!=1" [class.current]="isCurrentPage(indice)"
+                                        (click)="onPageChange(indice, pageSize)">{{ indice }}</a>
+                                </li>
+                                <li class="page-item" [ngClass]="{'disabled':!(customers?.totalPages > 2 && customers.pageable.pageNumber !=customers?.totalPages-1)}"
+                                    >
+                                    <a class="page-link"
+                                        (click)="onPageChange(customers.pageable.pageNumber + 1, pageSize)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+             
+
+
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+
+
+
+<!-- test -->

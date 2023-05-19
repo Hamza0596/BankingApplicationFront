@@ -1,0 +1,15 @@
+li{
+    cursor: pointer;
+}
+
+
+.current {
+    background-color: #337ab7;
+    color: white;
+  }
+  
+  /* SCSS */
+  .current {
+    background-color: #337ab7;
+    color: white;
+  }
