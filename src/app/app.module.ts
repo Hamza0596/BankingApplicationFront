@@ -9,6 +9,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BankAccountComponent } from './components/bank-account/bank-account.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -18,7 +22,9 @@ import { BankAccountComponent } from './components/bank-account/bank-account.com
     AppComponent,
     NavbarComponent,
     CustomersComponent,
-    BankAccountComponent
+    BankAccountComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +32,9 @@ import { BankAccountComponent } from './components/bank-account/bank-account.com
    ReactiveFormsModule,
    ReactiveFormsModule,
    HttpClientModule,
-   FormsModule
+   FormsModule,
+   BrowserAnimationsModule,
+   ToastrModule.forRoot(), // ToastrModule added
 
   ],
   providers: [],
