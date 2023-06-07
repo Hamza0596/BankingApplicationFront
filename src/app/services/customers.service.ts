@@ -14,14 +14,21 @@ export class CustomersService {
   constructor(private httpclient:HttpClient) { }
 
   getCustomers(pageNumber:number, size: number):Observable<any[]>{
-    return this.httpclient.get<any>(`${this.apiUrl}/customer/customers/${pageNumber}/${size}`);
+    return this.httpclient.get<any>(`${this.apiUrl}/user/users/${pageNumber}/${size}`);
 
   }
+
+  getRoles():Observable<any[]>{
+    return this.httpclient.get<any>(`${this.apiUrl}/user/users/roles`);
+
+  }
+
+
 
   searchByQuery(query:string , pageNumber:number, size:number):Observable<any[]>{
     let params=new HttpParams();
     params=params.append('query',query);
-    return this.httpclient.get<any>(`${this.apiUrl}/customer/search/${pageNumber}/${size}`,{params});
+    return this.httpclient.get<any>(`${this.apiUrl}/user/search/${pageNumber}/${size}`,{params});
   }
 
 
@@ -31,7 +38,7 @@ export class CustomersService {
 
 
   getCustomer(userId:number):Observable<any>{
-    return this.httpclient.get<any>(`${this.apiUrl}/customer/customers/${userId}`);
+    return this.httpclient.get<any>(`${this.apiUrl}/user/users/${userId}`);
   }
 
   updateCustomer(customer:any, id:number):Observable<any>{
@@ -42,4 +49,5 @@ export class CustomersService {
     return this.httpclient.post<any>(`${this.apiUrl}/customer/customers/`,customer)
     
   }
+  
 }

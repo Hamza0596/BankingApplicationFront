@@ -16,11 +16,12 @@ export class CustomersComponent implements OnInit {
    customers!:any;
    value!:string;
    pageNumber:number=0;
-   pageSize:number=5;
+   pageSize:number=2;
     numbers!: number[] ;
     customerForm!:FormGroup;
     customer!:any;
     updateMessage!:string;
+    roleNames!: any[];
 
 
 
@@ -32,7 +33,9 @@ export class CustomersComponent implements OnInit {
     firstName :  new FormControl('',Validators.required),
     lastName:  new FormControl('',Validators.required),
     email:   new FormControl('',[Validators.email,Validators.required] ),
-    job :   new FormControl('',Validators.required)
+    job :   new FormControl('',Validators.required),
+    userName:new FormControl('',Validators.required),
+    roles:new FormControl('',Validators.required)
        
 
    })
@@ -46,6 +49,8 @@ export class CustomersComponent implements OnInit {
     this.customersService.getCustomers(pageNumber,size).subscribe(data=>{
       this.customers=data
       this.numbers=new Array(this.customers.totalPages);
+      console.log(data);
+      
 
       
     })
@@ -71,11 +76,23 @@ export class CustomersComponent implements OnInit {
       }
     }
 
+    getRoles(){
+      this.customersService.getRoles().subscribe(dataRoles=>{
+        this.roleNames=dataRoles;
+        console.log(dataRoles);
+        
+      
+      })       
+    }
+
 
     getCustomer(id: number): void {
+
       this.customersService.getCustomer(id).subscribe(
+        
         (data) => {
-        this.customer=data;          
+        this.customer=data;   
+        
         },
         (error) => {
           // Handle any errors that occur during the request
@@ -94,15 +111,31 @@ export class CustomersComponent implements OnInit {
     }
 
     openUpdateModal(id: number){
+      this.getRoles();
+
        this.customersService.getCustomer(id).subscribe(
         (data) => {
-        this.customer=data;  
+        this.customer=data; 
+        for (let i = 0; i < this.roleNames.length; i++) {
+          
+          
+          
+          if(this.roleNames[i]==this.customer?.roles){
+            this.roleNames=this.roleNames.filter((_, j) => j !== i);
+
+            
+          }
+          
+        }
+         
 
         this.customerForm.patchValue({
           firstName:this.customer.firstName,
           lastName:this.customer.lastName,
           email:this.customer.email,
-          job:this.customer.job
+          job:this.customer.job,
+          userName:this.customer.userName,
+          roles:this.customer.roles
         })
 
                 
@@ -147,7 +180,7 @@ export class CustomersComponent implements OnInit {
      return (this.customers?.pageable.pageNumber==pageNum)
   }
   
- 
+  
      
       
 

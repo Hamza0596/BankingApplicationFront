@@ -22,37 +22,44 @@
               <div class="card-body py-5 px-md-5">
                 <form [formGroup]="regiserForm">
                   <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div style="text-align: center; margin-bottom: 10px;margin-top: 10px; font-size: 40px;" class="fw-bold ls-tight">
+                    
+                      
+                      <span class="text-primary">Signup</span>
+                   
+                    
+                  </div>
                   
                     <div class="form-outline mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example1" class="form-control"  formControlName="firstName"/>
                         <label class="form-label" for="form3Example1">First name</label>
+                        <input placeholder="Please enter your first name " type="text" id="form3Example1" class="form-control"  formControlName="firstName"/>
                       </div>
                     </div>
                     <div class="form-outline mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example2" formControlName="lastName" class="form-control" />
                         <label class="form-label" for="form3Example2">Last name</label>
+                        <input  placeholder="Please enter your Laste name " type="text" id="form3Example2" formControlName="lastName" class="form-control" />
                       </div>
                     </div>
                     <div class="form-outline mb-4">
                       <div class="form-outline">
-                        <input type="text" id="form3Example2" formControlName="userName" class="form-control" />
                         <label class="form-label" for="form3Example2">User name</label>
+                        <input placeholder="Please enter a specifique user Name " type="text" id="form3Example2" formControlName="userName" class="form-control" />
                       </div>
                     </div>
                   
   
                   <!-- Email input -->
                   <div class="form-outline mb-4">
-                    <input type="email" id="form3Example3" formControlName="email" class="form-control" />
                     <label class="form-label" for="form3Example3">Email address</label>
+                    <input placeholder="Please enter your email address " type="email" id="form3Example3" formControlName="email" class="form-control" />
                   </div>
   
-                  <!-- Password input -->
+                  <!-- job input -->
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example4" formControlName="job" class="form-control" />
                     <label class="form-label" for="form3Example4">Job</label>
+                    <input placeholder="Please enter your job" type="text" id="form3Example4" formControlName="job" class="form-control" />
                   </div>
                   
   
@@ -65,7 +72,7 @@
                   </div>
   
                   <!-- Submit button -->
-                  <button type="submit" class="btn btn-primary btn-block mb-4" (click)="register()">
+                  <button type="submit" [disabled]="regiserForm.invalid" class="btn btn-primary btn-block mb-4" (click)="register()">
                     Sign up
                   </button>
   

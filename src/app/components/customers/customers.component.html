@@ -86,11 +86,13 @@
                         <thead>
                             <tr>
                                 <th>*</th>
-                                <th>Name</th>
+                                <th>First Name</th>
                                 <th>Last Name</th>
+                                <th>User Name</th>
                                 <th>Job</th>
                                 <th>Email</th>
                                 <th>Creation Date</th>
+                                <th>Role</th>
                                 <th style="text-align: center;">Actions</th>
 
                             </tr>
@@ -100,9 +102,13 @@
                                 <td>{{ indice }}</td>
                                 <td>{{ c.firstName }}</td>
                                 <td>{{ c.lastName }}</td>
+                                <td>{{ c.userName }}</td>
                                 <td>{{ c.job }}</td>
                                 <td>{{ c.email }}</td>
                                 <td>{{ c.creationDate | date:'dd/MM/yyyy' }}</td>
+                                <td>{{ c.roles }}</td>
+
+
                                 <td>
                                     <div style="display: flex; justify-content: space-around;">
 
@@ -148,10 +154,27 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="exampleFormControlInput1"
+                                                                    class="form-label"> User Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="exampleFormControlInput1"
+                                                                    placeholder="Customer user Name"
+                                                                    formControlName="userName">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1"
                                                                     class="form-label"> Job</label>
                                                                 <input type="text" class="form-control"
                                                                     id="exampleFormControlInput1"
                                                                     placeholder="Customer Job" formControlName="job">
+                                                            </div>
+                                                            <div style="margin-bottom: 15px;">
+                                                                <label for="exampleFormControlInput1"
+                                                                    class="form-label">Role</label>
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected >{{customer?.roles}}</option>
+                                                                <option *ngFor="let c of roleNames" value="c">{{c}}</option>
+                                                                
+                                                              </select>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="exampleFormControlInput1"
@@ -161,6 +184,7 @@
                                                                     placeholder="name@example.com"
                                                                     formControlName="email">
                                                             </div>
+                                                            
                                                             <p>{{updateMessage}}</p>
 
                                                         </form>
