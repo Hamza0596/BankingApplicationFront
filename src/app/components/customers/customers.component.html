@@ -6,7 +6,7 @@
 
             <button type="button" style="margin-bottom:6px ;" class="btn btn-primary"
              data-bs-toggle="modal"
-            data-bs-target="#CreateCustomerModal" (click)=" resetForm()">
+            data-bs-target="#CreateCustomerModal" (click)=" resetForm();getRoles()">
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
                 <path
@@ -46,6 +46,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1"
+                                    class="form-label"> User Name</label>
+                                <input type="text" class="form-control"
+                                    id="exampleFormControlInput1"
+                                    placeholder="User Name"
+                                    formControlName="userName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1"
                                     class="form-label"> Job</label>
                                 <input type="text" class="form-control"
                                     id="exampleFormControlInput1"
@@ -59,6 +67,26 @@
                                     placeholder="name@example.com"
                                     formControlName="email">
                             </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <label for="exampleFormControlInput1"
+                                    class="form-label">Role</label>
+                            <select class="form-select" aria-label="Default select example" formControlName="roles">
+                                <option *ngFor="let c of roleNames" value="{{c}}">{{c}}</option>
+                                
+                              </select>
+                            </div>
+
+                            <div >
+                                <div class="form-check form-switch" style="margin-bottom: 15px;margin-top:16px;">
+                                    <label  for="flexSwitchCheckChecked">Active customer</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" formControlName="active"  >
+                                  </div>
+                                  <div class="form-check form-switch" style="margin-bottom: 15px;margin-top:16px;">
+                                    <label  for="flexSwitchCheckChecked">Lock customer</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" formControlName="notLocked"  >
+                                  </div>
+                              </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -170,12 +198,22 @@
                                                             <div style="margin-bottom: 15px;">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Role</label>
-                                                            <select class="form-select" aria-label="Default select example">
+                                                            <select class="form-select" aria-label="Default select example" formControlName="roles">
                                                                 <option selected >{{customer?.roles}}</option>
-                                                                <option *ngFor="let c of roleNames" value="c">{{c}}</option>
+                                                                <option *ngFor="let c of roleNames" value="{{c}}">{{c}}</option>
                                                                 
                                                               </select>
                                                             </div>
+                                                          <div >
+                                                            <div class="form-check form-switch" style="margin-bottom: 15px;margin-top:16px;">
+                                                                <label  for="flexSwitchCheckChecked">Active customer</label>
+                                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" formControlName="active"  >
+                                                              </div>
+                                                              <div class="form-check form-switch" style="margin-bottom: 15px;margin-top:16px;">
+                                                                <label  for="flexSwitchCheckChecked">Lock customer</label>
+                                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" formControlName="notLocked"  >
+                                                              </div>
+                                                          </div>
                                                             <div class="mb-3">
                                                                 <label for="exampleFormControlInput1"
                                                                     class="form-label">Email address</label>
@@ -193,7 +231,7 @@
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
                                                         <button type="button" class="btn btn-primary"
-                                                            (click)="updateCustomer(c.id)" data-bs-dismiss="modal"
+                                                            (click)="updateCustomer(customer.userName)" data-bs-dismiss="modal"
                                                             [disabled]="customerForm.invalid">Save
                                                             changes</button>
                                                     </div>
@@ -249,4 +287,6 @@
 
 
 
+
 <!-- test -->
+

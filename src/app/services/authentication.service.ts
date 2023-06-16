@@ -19,8 +19,8 @@ export class AuthenticationService {
 
   constructor(private httpClient :HttpClient ) { }
 
-  public login(user:any):Observable<HttpResponse<any>|HttpErrorResponse>{
-     return this.httpClient.post<HttpResponse<any>|HttpErrorResponse>(`${this.apiUrl}/user/login`,user,{observe:'response'});
+  public login(user:any):Observable<any>{
+     return this.httpClient.post<HttpResponse<any>|HttpErrorResponse>(`${this.apiUrl}/user/login`,user,{observe:'response'})
   }
 
   public register(user: any): Observable<any> {
@@ -70,6 +70,16 @@ export class AuthenticationService {
       this.logOut();
       return false;
     
+  }
+
+  sendEmailForRest(email:string){
+    return this.httpClient.get<any>(`${this.apiUrl}/user/reset/mail/${email}`);
+
+  }
+
+  resetPassword(email:string,token:string){
+    return this.httpClient.get<any>(`${this.apiUrl}/user/reset/${email}/${token}`);
+
   }
 }
 

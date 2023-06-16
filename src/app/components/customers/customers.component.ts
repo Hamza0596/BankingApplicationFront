@@ -19,6 +19,8 @@ export class CustomersComponent implements OnInit {
    pageSize:number=2;
     numbers!: number[] ;
     customerForm!:FormGroup;
+    changepass!:FormGroup;
+
     customer!:any;
     updateMessage!:string;
     roleNames!: any[];
@@ -27,16 +29,20 @@ export class CustomersComponent implements OnInit {
 
 
   ngOnInit(): void {
-  this.getCustomers(this.pageNumber,this.pageSize);
+    
 
+
+  this.getCustomers(this.pageNumber,this.pageSize);
    this.customerForm=new FormGroup({
     firstName :  new FormControl('',Validators.required),
     lastName:  new FormControl('',Validators.required),
     email:   new FormControl('',[Validators.email,Validators.required] ),
     job :   new FormControl('',Validators.required),
     userName:new FormControl('',Validators.required),
-    roles:new FormControl('',Validators.required)
-       
+    roles:new FormControl('',Validators.required),
+    notLocked:new FormControl('',Validators.required),
+    active:new FormControl('',Validators.required)
+
 
    })
 
@@ -79,7 +85,7 @@ export class CustomersComponent implements OnInit {
     getRoles(){
       this.customersService.getRoles().subscribe(dataRoles=>{
         this.roleNames=dataRoles;
-        console.log(dataRoles);
+        console.log(this.roleNames);
         
       
       })       
@@ -92,6 +98,7 @@ export class CustomersComponent implements OnInit {
         
         (data) => {
         this.customer=data;   
+        
         
         },
         (error) => {
@@ -106,6 +113,8 @@ export class CustomersComponent implements OnInit {
       let confirmation=confirm("Are you sure to delete this  customer ? ");
       if(!confirmation) return;
       this.customersService.delete(userId).subscribe(data=>{
+        console.log(data);
+        
         this.getCustomers(this.pageNumber,this.pageSize);
       });
     }
@@ -135,7 +144,11 @@ export class CustomersComponent implements OnInit {
           email:this.customer.email,
           job:this.customer.job,
           userName:this.customer.userName,
-          roles:this.customer.roles
+          roles:this.customer.roles,
+          notLocked:this.customer.notLocked,
+          active:this.customer.active
+
+
         })
 
                 
@@ -149,7 +162,9 @@ export class CustomersComponent implements OnInit {
     }
 
     createCustomer(){
+
       this.customersService.createCustomer(this.customerForm.value).subscribe(data=>{
+        
         this.getCustomers(this.pageNumber,this.pageSize);
 
       }
@@ -157,9 +172,11 @@ export class CustomersComponent implements OnInit {
       );
     }
 
-    updateCustomer(id :number){
-      this.customersService.updateCustomer(this.customerForm.value,id).subscribe(data=>{
+    updateCustomer(originalCustomerName:string){
+      this.customersService.updateCustomer(this.customerForm.value,originalCustomerName).subscribe(data=>{
         this.updateMessage='ok'
+        console.log(this.customerForm.value);
+        
         this.getCustomers(this.pageNumber,this.pageSize);
       },
       (error)=>{
@@ -171,6 +188,7 @@ export class CustomersComponent implements OnInit {
 
 
     resetForm() {
+      
       this.customerForm.reset();
     
   }
@@ -181,7 +199,7 @@ export class CustomersComponent implements OnInit {
   }
   
   
-     
+   
       
 
 
