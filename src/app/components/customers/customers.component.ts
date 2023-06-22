@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { AccountsService } from 'src/app/services/accounts.service';
 import { CustomersService } from 'src/app/services/customers.service';
 
 
@@ -11,7 +14,8 @@ import { CustomersService } from 'src/app/services/customers.service';
 })
 export class CustomersComponent implements OnInit {
 
-  constructor(private customersService:CustomersService) { }
+  constructor(private customersService:CustomersService, private accountsService: AccountsService,    private toastr: ToastrService,
+    private router : Router) { }
   displayedColumns: string[] = ['id', 'firstName','lastName', 'job','email','creationDate'];
    customers!:any;
    value!:string;
@@ -24,11 +28,20 @@ export class CustomersComponent implements OnInit {
     customer!:any;
     updateMessage!:string;
     roleNames!: any[];
+    bankAccountForm !:FormGroup;
 
 
 
 
   ngOnInit(): void {
+
+
+    this.bankAccountForm=new FormGroup({
+     balance :  new FormControl('',Validators.required),
+     customerId:  new FormControl('',Validators.required),
+     type:   new FormControl('',[Validators.email,Validators.required] ),
+     
+    })
     
 
 
@@ -197,10 +210,32 @@ export class CustomersComponent implements OnInit {
   isCurrentPage(pageNum:number):boolean{
      return (this.customers?.pageable.pageNumber==pageNum)
   }
+
+
   
   
    
-      
+  accounts(id:number){
+    this.router.navigateByUrl('bankaccount/'+id);
+    console.log("hello");
+    
 
+  }
+
+
+  showSuccess() {
+    this.toastr.success('Account added with success!', 'Toastr fun!');
+  }
+
+  failure(message:string) {
+    this.toastr.error("message", 'Error', {
+      timeOut: 3000,
+    });  }
+
+
+    createAccount(userId:number){
+      this.router.navigateByUrl('account/'+userId);
+
+    }
 
 }

@@ -16,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { AuthenticationGuard } from 'src/authentication.guard';
-
+import { AccountOperationsComponent } from './components/account-operations/account-operations.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
 
 
 
@@ -29,6 +30,8 @@ import { AuthenticationGuard } from 'src/authentication.guard';
     LoginComponent,
     RegisterComponent,
     ResetPasswordComponent,
+    AccountOperationsComponent,
+    CreateAccountComponent,
       ],
   imports: [
     BrowserModule,

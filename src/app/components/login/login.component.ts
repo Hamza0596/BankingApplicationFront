@@ -52,9 +52,8 @@ export class LoginComponent implements OnInit {
     });
   }
   
-
   showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.toastr.success('Welcome!', 'Toastr fun!');
   }
 
   failure(message:string) {

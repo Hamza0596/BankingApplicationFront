@@ -6,13 +6,18 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AuthenticationGuard } from 'src/authentication.guard';
+import { AccountOperationsComponent } from './components/account-operations/account-operations.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
 
 const routes: Routes = [
   {path:'customers',component:CustomersComponent,canActivate: [AuthenticationGuard]},
-  {path:'bankaccount',component:BankAccountComponent},
+  {path:'bankaccount/:userId',component:BankAccountComponent,canActivate: [AuthenticationGuard]},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent },
-  {path:'resetpassword/:email/:token',component:ResetPasswordComponent }
+  {path:'resetpassword/:email/:token',component:ResetPasswordComponent },
+  {path:'operations',component:AccountOperationsComponent,canActivate:[AuthenticationGuard] },
+  {path:'account/:userId',component:CreateAccountComponent}
+
 
 
 

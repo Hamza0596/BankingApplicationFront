@@ -1,0 +1,83 @@
+                                <!-- CreateaccountModal
+
+
+                                <div  >
+                                <div >
+                                    <div >
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Account
+                                            </h1>
+                                        
+                                        </div>
+                                        <div class="modal-body">
+                                            <form >
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="exampleFormControlInput1" class="form-label">Type</label>
+                                                    <select class="form-select" aria-label="Default select example" >
+                                                        
+                                                        <option selected  value="CURR" >Current Account</option>
+                                                        <option value="SAVE">Saving Account</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1"
+                                                        class="form-label">Balance</label>
+                                                    <input type="number" class="form-control"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="Balance"
+                                                        >
+                                                </div>
+                                            
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary"
+                                                 data-bs-dismiss="modal"
+                                                >Create</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div> -->
+  
+
+
+
+                 <div class="container" >
+                                    <div class="row justify-content-center">
+                                      <div class="col-lg-10 col-md-10 col-sm-12 mt-5">
+                                        <div class="card custom-card">
+                                          <div class="card-body">
+                                            <h5 class="card-title" style="text-align: center; margin-bottom:50px ;">Formulaire de transaction</h5>
+                                            <form [formGroup]="bankAccountForm">
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="exampleFormControlInput1" class="form-label">Type</label>
+                                                    <select class="form-select" aria-label="Default select example" formControlName="type">
+                                                        
+                                                        <option selected  value="CURR" >Current Account</option>
+                                                        <option value="SAVE">Saving Account</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1"
+                                                        class="form-label">Balance</label>
+                                                    <input type="number" class="form-control"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="Balance"
+                                                        formControlName="balance">
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <button (click)="createAccount()" type="submit" class="btn btn-primary">Soumettre</button>
+                                                  </div>
+                                            
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
