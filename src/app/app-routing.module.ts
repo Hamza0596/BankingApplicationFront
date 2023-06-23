@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { AuthenticationGuard } from 'src/authentication.guard';
 import { AccountOperationsComponent } from './components/account-operations/account-operations.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { HistoriqueaccountsComponent } from './components/historiqueaccounts/historiqueaccounts.component';
 
 const routes: Routes = [
   {path:'customers',component:CustomersComponent,canActivate: [AuthenticationGuard]},
@@ -16,7 +17,10 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent },
   {path:'resetpassword/:email/:token',component:ResetPasswordComponent },
   {path:'operations',component:AccountOperationsComponent,canActivate:[AuthenticationGuard] },
-  {path:'account/:userId',component:CreateAccountComponent}
+  {path:'account/:userId',component:CreateAccountComponent,canActivate:[AuthenticationGuard]},
+  {path:'historique',component:HistoriqueaccountsComponent,canActivate:[AuthenticationGuard]},
+
+
 
 
 

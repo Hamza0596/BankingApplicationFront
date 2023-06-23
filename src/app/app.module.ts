@@ -18,6 +18,8 @@ import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { AuthenticationGuard } from 'src/authentication.guard';
 import { AccountOperationsComponent } from './components/account-operations/account-operations.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { HistoriqueaccountsComponent } from './components/historiqueaccounts/historiqueaccounts.component';
+import { TableComponent } from './components/table/table.component';
 
 
 
@@ -32,6 +34,8 @@ import { CreateAccountComponent } from './components/create-account/create-accou
     ResetPasswordComponent,
     AccountOperationsComponent,
     CreateAccountComponent,
+    HistoriqueaccountsComponent,
+    TableComponent,
       ],
   imports: [
     BrowserModule,

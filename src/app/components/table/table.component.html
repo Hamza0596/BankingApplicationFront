@@ -1,0 +1,83 @@
+<div class="container mt-2" style="margin-top: 80px !important;">
+  <form [formGroup]="historiqueForm">
+    <div style="display: flex; justify-content: space-between; ">
+        <div class="mb-3">
+            <h6 for="bankAccount" class="form-label">Banking account </h6>
+            <select class="form-select" id="bankAccount" formControlName="accountId" (ngModelChange)="getHistorque()">
+              <option *ngFor="let account of accounts" value={{account.id}}>{{account.type}} : {{account.id}}</option>
+            </select>
+        </div>
+        
+      
+    </div>
+  </form>
+    <ng-container >
+        <div class="card">
+            <div class="card-header" style="text-align: center;">Operations historique </div>
+            <div class="card-body" >
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>*</th>
+                                <th>operationDate</th>
+                                <th>amount</th>
+                                <th>type</th>
+                                <th>description</th>
+                                
+                                
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let o of operations?.accountOperationDtos; let indice = index ">
+                                <td>{{ indice }}</td>
+                                <td>{{ o.operationDate | date:'EEEE, MMMM d, y'  }}</td>
+                                <td>{{ o.amount }}</td>
+                                <td>{{ o.type }}</td>
+                                <td>{{ o.description }}</td>
+                                
+                            
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+
+                    <!-- <div style="display: flex; justify-content: center;"  >
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item"
+                                [ngClass]="{'disabled': !(customers?.totalPages > 2 && customers.pageable.pageNumber !=0)}" >
+                                    <a class="page-link"
+                                        (click)="onPageChange(customers.pageable.pageNumber-1, pageSize)">Previous</a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of numbers; let indice=index">
+                                    <a class="page-link" *ngIf="customers.totalPages!=1" [class.current]="isCurrentPage(indice)"
+                                        (click)="onPageChange(indice, pageSize)">{{ indice }}</a>
+                                </li>
+                                <li class="page-item" [ngClass]="{'disabled':!(customers?.totalPages > 2 && customers.pageable.pageNumber !=customers?.totalPages-1)}"
+                                    >
+                                    <a class="page-link"
+                                        (click)="onPageChange(customers.pageable.pageNumber + 1, pageSize)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+                </div>
+
+             
+
+
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+
+
+
+
+
+
+
