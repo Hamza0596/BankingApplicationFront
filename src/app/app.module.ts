@@ -20,6 +20,7 @@ import { AccountOperationsComponent } from './components/account-operations/acco
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { HistoriqueaccountsComponent } from './components/historiqueaccounts/historiqueaccounts.component';
 import { TableComponent } from './components/table/table.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 
 
@@ -36,6 +37,7 @@ import { TableComponent } from './components/table/table.component';
     CreateAccountComponent,
     HistoriqueaccountsComponent,
     TableComponent,
+    UnauthorizedComponent,
       ],
   imports: [
     BrowserModule,

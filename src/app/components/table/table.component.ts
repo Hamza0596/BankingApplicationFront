@@ -44,7 +44,8 @@ export class TableComponent implements OnInit {
     this.accountService.getAccount(this.historiqueForm.value.accountId,0,3).subscribe(data=>{
       this.operations=data;
       console.log(data);
-      
+      console.log(data.balance);
+
       
     })
   }

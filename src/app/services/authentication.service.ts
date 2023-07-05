@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -15,23 +15,41 @@ export class AuthenticationService {
   apiUrl=environment.apiUrl;
   private jwtHelper = new JwtHelperService();
 
+   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  public isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
 
-  constructor(private httpClient :HttpClient ) { }
 
-  public login(user:any):Observable<any>{
-     return this.httpClient.post<HttpResponse<any>|HttpErrorResponse>(`${this.apiUrl}/user/login`,user,{observe:'response'})
+
+  constructor(private httpClient :HttpClient ) {
+  
+   }
+
+  login(user: any): Observable<any> {
+    return this.httpClient.post<HttpResponse<any> | HttpErrorResponse>(`${this.apiUrl}/user/login`, user, { observe: 'response' })
+      .pipe(
+        map((response: HttpResponse<any> | HttpErrorResponse) => {
+          if (response instanceof HttpResponse) {
+            this.isLoggedInSubject.next(true);
+
+          }
+          return response;
+        })
+      );
   }
 
   public register(user: any): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/user/register`, user);
   }
-  public logOut(): void {
+  public logOut() {
     this.token = null;
     this.loggedInUsername = null;
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('users');
+    this.isLoggedInSubject.next(false);
+
+
   }
   public saveToken(token: string): void {
     this.token = token;

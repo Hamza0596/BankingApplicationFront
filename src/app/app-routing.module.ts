@@ -9,9 +9,11 @@ import { AuthenticationGuard } from 'src/authentication.guard';
 import { AccountOperationsComponent } from './components/account-operations/account-operations.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { HistoriqueaccountsComponent } from './components/historiqueaccounts/historiqueaccounts.component';
+import { RoleGuard } from './guards/role.guard';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 const routes: Routes = [
-  {path:'customers',component:CustomersComponent,canActivate: [AuthenticationGuard]},
+  {path:'customers',component:CustomersComponent,canActivate: [AuthenticationGuard,RoleGuard]},
   {path:'bankaccount/:userId',component:BankAccountComponent,canActivate: [AuthenticationGuard]},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent },
@@ -19,6 +21,7 @@ const routes: Routes = [
   {path:'operations',component:AccountOperationsComponent,canActivate:[AuthenticationGuard] },
   {path:'account/:userId',component:CreateAccountComponent,canActivate:[AuthenticationGuard]},
   {path:'historique',component:HistoriqueaccountsComponent,canActivate:[AuthenticationGuard]},
+  {path:'unauthorized',component:UnauthorizedComponent},
 
 
 

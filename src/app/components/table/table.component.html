@@ -1,11 +1,14 @@
 <div class="container mt-2" style="margin-top: 80px !important;">
   <form [formGroup]="historiqueForm">
     <div style="display: flex; justify-content: space-between; ">
-        <div class="mb-3">
-            <h6 for="bankAccount" class="form-label">Banking account </h6>
+        <div class="mb-3" >
+            
+                <h6 for="bankAccount" class="form-label">Banking account </h6>
             <select class="form-select" id="bankAccount" formControlName="accountId" (ngModelChange)="getHistorque()">
               <option *ngFor="let account of accounts" value={{account.id}}>{{account.type}} : {{account.id}}</option>
             </select>
+            
+           
         </div>
         
       
@@ -13,7 +16,8 @@
   </form>
     <ng-container >
         <div class="card">
-            <div class="card-header" style="text-align: center;">Operations historique </div>
+            <div class="card-header" style="text-align: center;">Operations historique: Your balance until now : {{operations?.balance}} $
+            </div>
             <div class="card-body" >
                 <div class="table-responsive">
                     <table class="table">
@@ -24,6 +28,8 @@
                                 <th>amount</th>
                                 <th>type</th>
                                 <th>description</th>
+                                <th>Amount until now</th>
+
                                 
                                 
 
@@ -37,7 +43,6 @@
                                 <td>{{ o.amount }}</td>
                                 <td>{{ o.type }}</td>
                                 <td>{{ o.description }}</td>
-                                
                             
                             </tr>
                         </tbody>

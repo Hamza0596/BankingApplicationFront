@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CustomersService } from 'src/app/services/customers.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,11 +15,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authenticaTionService:AuthenticationService,private toastr: ToastrService, private customersService: CustomersService) { }
+  constructor(private authenticaTionService:AuthenticationService,private router : Router, private toastr: ToastrService, private customersService: CustomersService) { }
   loginForm!:FormGroup;
   passwordForm!:FormGroup;
 
   ngOnInit(): void {
+
+    
 
     this.passwordForm=new FormGroup({
       
@@ -47,6 +50,8 @@ export class LoginComponent implements OnInit {
       
       console.log(data);
       this.showSuccess();
+      this.router.navigateByUrl('/historique')
+
     }, (error) => {
       this.failure("Verify your credentials please");
     });
